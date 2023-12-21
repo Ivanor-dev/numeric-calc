@@ -1,6 +1,5 @@
 import math as math
 
-
 coeficientesPolinomio = []
 
 def equacao():
@@ -21,25 +20,25 @@ def acharY(x):
         
         return resultado
 
-def bissecao(a, b, epslon):
 
-        print("passou")
-        raiz = b - a
-        if abs(raiz) < epslon:
-            return (b + a) / 2
+def posicaoFalsa(a, b, epslon):
+    raiz = (acharY(b) * a - acharY(a) * b)/(acharY(b) - acharY(a))
+    if abs(acharY(raiz)) <= epslon:
+        return raiz
+    else:
+        if acharY(raiz) * acharY(a) < 0:
+            return posicaoFalsa(a, raiz, epslon)
         else:
-            if acharY((b + a) / 2) * acharY(a) < 0 or acharY((b + a) / 2) * acharY(b) < 0:
-                return bissecao((b + a) / 2, b, epslon)
-            else:
-                return bissecao(a, (b + a) / 2, epslon)
+            return posicaoFalsa(raiz, b, epslon)
+
+
 
 equacao()
 
 a = float(input("ponto A: "))
 
-
 b = float(input("ponto B: "))
 
 epslon = float(input("precisão: "))
 
-print(bissecao(a, b, epslon))
+print(posicaoFalsa(a, b, epslon))
